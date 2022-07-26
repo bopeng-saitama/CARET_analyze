@@ -1,0 +1,12 @@
+matrix:
+- name: Code
+  expect_match: false
+  apsell:
+    mode: en
+  dictionary:
+    wordlists:
+    - .wordlist.txt
+    output: wordlist.dic
+    encoding: utf-8
+
+
