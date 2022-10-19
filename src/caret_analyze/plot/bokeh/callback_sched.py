@@ -213,10 +213,6 @@ def sched_plot_cbg(
                                                  rect_height, converter)
             bar_source = get_callback_bar(callback, rect_y,
                                           frame_max, frame_min)
-            color = color_selector.get_color(
-                callback.node_name,
-                callback_group.callback_group_name,
-                callback.callback_name)
             plot1 = p.rect(
                 'x',
                 'y',
