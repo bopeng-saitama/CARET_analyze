@@ -23,14 +23,15 @@ import pytest
 @pytest.fixture
 def create_mock(mocker):
     def _create_mock(data, columns):
-        columns = [ColumnValue(column) for column in columns]
-        records = RecordsFactory.create_instance(data, columns=columns)
+        records_columns = [ColumnValue(column) for column in columns]
+        records = RecordsFactory.create_instance(data, columns=records_columns)
         target_objects = mocker.Mock(spec=Path)
         stacked_bar_plot = LatencyStackedBar(target_objects)
         column_map = {}
         for column in columns:
             column_map[column] = column + '_renamed'
-        mocker.patch.object(stacked_bar_plot, '_get_response_time_record', return_value=records)
+        mocker.patch.object(
+            stacked_bar_plot, '_get_response_time_record', return_value=records)
         return stacked_bar_plot
     return _create_mock
 
@@ -106,7 +107,8 @@ class TestLatencyStackedBar:
     def test_to_dataframe(self, create_mock):
         data, columns, expect_dict, _ = get_data_set()
         for column in expect_dict.keys():
-            expect_dict[column] = [timestamp * 1e-6 for timestamp in expect_dict[column]]
+            expect_dict[column] = [timestamp *
+                                   1e-6 for timestamp in expect_dict[column]]
         expect_df = pd.DataFrame(expect_dict)
 
         # create mock
